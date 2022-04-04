@@ -2,16 +2,15 @@ const express = require('express')
 const path = require('path')
 const mysql  = require('mysql')
 
+// routes objects
+const userRoutes = require('./routes/utilisateur.routes')
+
 // app
 const app = express()
 
-// request?
-app.use((req, res, next) => {
-    console.log('request received!')
-    next()
-})
 
-// cors
+
+// set headers
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization')
@@ -19,9 +18,16 @@ app.use((req, res, next) => {
     next()
 })
 
+// request?
+app.use((req, res, next) => {
+    console.log('request received!')
+    next()
+})
+
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 // routes
+app.use('/user', userRoutes)
 
 module.exports = app
