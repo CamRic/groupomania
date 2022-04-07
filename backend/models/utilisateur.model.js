@@ -105,6 +105,25 @@ Utilisateur.deleteOne = (userId, result) => {
     })
 }
 
-    // modify one user
+    // update one user
+Utilisateur.updateById = (id, user, result) => {
+    let query = 'UPDATE user SET email = ?, password = ?, first_name = ?, last_name = ? WHERE user_id = ?'
+
+    sql.query(query,
+        [user.email, user.password, user.first_name, user.last_name, id],
+        (err, res) => {
+            if (err) {
+                console.log('error: ', err)
+                result(null, err)
+                return
+            }
+            if (res.affectedRows == 0) {
+                result({ kind: 'not_found'}, null)
+                return
+            }
+            console.log('updated user: ' ,{ id: id, ...user })
+            result(null, { id: id, ...user })
+        })
+}
 
 module.exports = Utilisateur

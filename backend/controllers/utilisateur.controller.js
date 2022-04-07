@@ -102,3 +102,23 @@ exports.deleteUser = (req, res) => {
     })
 
 }
+
+// updating one user
+exports.updateOne = (req, res) => {
+    // valide request
+    if (!req.body) {
+        res.status(400).send({ message: 'Content cannot be empty!' })
+    }
+    console.log(req.body)
+    Utilisateur.updateById(req.params.id, new Utilisateur(req.body), (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({ message: `user(${req.params.id}) not found`})
+            } else {
+                res.status(500).send({ message: `error updating user(${req.params.id})`})
+            }
+        } else {
+            res.send(data)
+        }
+    })
+}

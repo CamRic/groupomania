@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const userCtrl = require('../controllers/utilisateur.controller')
+const auth = require('../middleware/auth')
 
 // get all users
 router.get('/', userCtrl.findAll)
@@ -11,7 +12,9 @@ router.get('/:id', userCtrl.findOneById)
 router.post('/signup', userCtrl.create)
 // connection
 router.post('/login', userCtrl.login)
-// deleting
+// deleting one user
 router.delete('/:id', /* auth middleware, */ userCtrl.deleteUser)
+// updating one user
+router.put('/:id',/* auth middleware, */ userCtrl.updateOne)
 
 module.exports = router
