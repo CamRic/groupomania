@@ -17,14 +17,13 @@ exports.findAll = (req, res) => {
 // send one user datas
 exports.findOneById = (req, res) => {
     const userId = req.params.id
-    console.log(userId)
     Utilisateur.getOneById(userId, (err, data) => {
         if (err) {
             res.status(500).send({
                 err
             })
         }
-        else res.send(data)
+        else res.status(201).send(data)
     })
 }
 
@@ -34,7 +33,6 @@ exports.create = (req, res) => {
     if (!req.body) {
         res.status(400).send({message: 'Error request contains no content'})
     }
-    
     // create new user
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -42,14 +40,13 @@ exports.create = (req, res) => {
                 email: req.body.email,
                 password: hash,
                 first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                role: req.body.role
+                last_name: req.body.last_name
             })
             Utilisateur.createOne(user, (err, data) => {
                 if (err) {
                     res.status(500).send({message: err.message})
                 } else {
-                    res.send(data)
+                    res.status(201).send({message: 'user created: ' + user.email})
                 }
             })
         })
@@ -60,22 +57,16 @@ exports.create = (req, res) => {
 // loging
 exports.login = (req, res) => {
     // is email valid?
-    console.log(req.body.email)
-    var loguser;
     Utilisateur.getOneByEmail(req.body.email, (err, data) => {
         if (err) {
             res.status(500).send({message: err.message})
         } else {
             if (data.length) {
-                console.log('data received')
-                console.log('body pass: ' + req.body.password)
-                console.log('data pass: ' + data[0].password)
                 bcrypt.compare(req.body.password, data[0].password)
                     .then(valid => {
                         if (!valid) { // si mot de passe invalide
                             return res.status(401).json({ error: 'Mot de passe non valide'})
                         }
-                        console.log("valide mdp")
                         res.status(200).json({
                             userId: data[0].user_id,
                             token: jwt.sign(
@@ -94,25 +85,20 @@ exports.login = (req, res) => {
         }
     })
 }
-/*
-if (!validEmail) {
-    res.status(401).json({ error: 'Email invalide'})
-} else {
-    // si email valide, comparaison des mdp
-    bcrypt.compare(req.body.password, data[0].password)
-        .then(valid => {
-            if (!valid) { // si mot de passe invalide
-                return res.status(401).json({ error: 'Mot de passe non valide'})
-            }
-            res.status(200).json({
-                userId: data[0].user_id,
-                token: jwt.sign(
-                    {userId: data[0].user_id},
-                    'RANDOM_TOKEN_SECRET',
-                    {expiresIn: '2h'}
-                )
-            })
-        })
-        .catch(error => res.status(500).json({ error }))
+
+// deleting one user
+exports.deleteUser = (req, res) => {
+    
+    /* comparing tokens userid and request user id */
+
+    Utilisateur.deleteOne(req.params.id, (err, data) => {
+        if (err) {
+            if (err.kind == 'not_found') res.status(404).send({message: `user(${req.params.id}) not found`})
+            else res.status(500).send({message: `Could not delete user(${req.params.id})`})
+        } else {
+            res.send({message: 'user was deleted successfully!'})
+        }
+
+    })
+
 }
-*/

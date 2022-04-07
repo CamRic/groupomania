@@ -50,7 +50,6 @@ Utilisateur.getOneById = (user_id, result) => {
 
 Utilisateur.getOneByEmail = (userEmail, result) => {
     let query = `SELECT * FROM user WHERE email = '${userEmail}';`
-    console.log(query)
 
     sql.query(query, (err, res) => {
         console.log(res)
@@ -86,6 +85,26 @@ Utilisateur.createOne = (newUser, result) => {
     })
 }
 
+    // delete one user
+Utilisateur.deleteOne = (userId, result) => {
+    let query = `DELETE FROM user WHERE user_id = ?`
+    console.log(query)
 
+    sql.query(query, userId, (err, res) => {
+        if (err) {
+            console.log("error: ", err)
+            result(null, err)
+            return
+        }
+        if (res.affectedRows == 0) {
+            result({ kind: 'not_found'}, null)
+            return
+        }
+        console.log('delete user: id= ', userId)
+        result(null, res)
+    })
+}
+
+    // modify one user
 
 module.exports = Utilisateur

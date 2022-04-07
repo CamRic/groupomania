@@ -11,5 +11,7 @@ router.get('/:id', userCtrl.findOneById)
 router.post('/signup', userCtrl.create)
 // connection
 router.post('/login', userCtrl.login)
+// deleting
+router.delete('/:id', /* auth middleware, */ userCtrl.deleteUser)
 
 module.exports = router
