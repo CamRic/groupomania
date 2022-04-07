@@ -1,2 +1,2 @@
 ! generation d'id
-! modification utilisateur
+! implementer sequelize
