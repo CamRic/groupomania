@@ -1,11 +1,22 @@
 const express = require('express')
+const sequelize = require('./models/db')
 
 // routes objects
-const userRoutes = require('./routes/utilisateur.routes')
+const userRoutes = require('./routes/user.routes')
 
 // app
 const app = express()
 
+// connect to db
+console.log("checking connection to db...")
+try {
+    sequelize.authenticate()
+    console.log('Connected to db!')
+} catch (error) {
+    console.log('Can\'t connect to db...')
+    console.log(error)
+    process.exit(1)
+}
 
 
 // set headers

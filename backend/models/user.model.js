@@ -1,45 +1,47 @@
+const Sequelize = require('sequelize')
 const sequelize = require('./db')
-const bcrypt = require('bcrypt')
-const { DataTypes } = require('sequelize')
 
-const User = sequelize.define('User', {
+const User =  sequelize.define('User', {
     user_id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.UUID,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false,
-        unique: true
+        unique: true,
+        defaultValue: Sequelize.UUIDV4
     },
     email: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
     },
     password: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING(60),
         allowNull: false
     },
     first_name: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     last_name: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING,
         allowNull: false
     },
     topics: {
-        type: DataTypes.JSON,
+        type: Sequelize.JSON,
         defaultValue: {"topics": []}
     },
     posts: {
-        type: DataTypes.JSON,
+        type: Sequelize.JSON,
         defaultValue: {"posts": []}
     },
     favorites: {
-        type: DataTypes.JSON,
+        type: Sequelize.JSON,
         defaultValue: {"favorites": []}
     }
 }, {
     sequelize,
     modelName: 'User'
 })
+
+module.exports = User
