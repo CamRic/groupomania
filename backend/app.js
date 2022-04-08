@@ -1,6 +1,4 @@
 const express = require('express')
-const path = require('path')
-const mysql  = require('mysql')
 
 // routes objects
 const userRoutes = require('./routes/utilisateur.routes')
