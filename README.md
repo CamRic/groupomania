@@ -60,8 +60,8 @@ Ouvrez un terminal de commande, connectez vous à mysql, puis:
 
 Pour lancer le projet, lancez le terminal de commande puis tapez:
 - si le repo n'est pas encore cloné
-    -> $ git clone [link]
-    -> $ cd [folder_name]
+    -> $ git clone https://github.com/CamRic/groupomania.git
+    -> $ cd groupomania
 - le repo est cloné, à partir du dossier source
     -> $ cd backend && npm install
     -> $ nodemon server / node server
