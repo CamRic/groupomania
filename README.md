@@ -1,16 +1,20 @@
-# GROUPOMANIA ____________
-Ceci est le dernier projet de la formation Web Développement OpenClassrooms: création d'un réseau social d'entreprise. L'exercice consistait à développer le backend et le frontend.
+# ____________ GROUPOMANIA ____________
+Ceci est le dernier projet de la formation Web Développement OpenClassrooms: création d'un réseau social d'entreprise. L'exercice consistait à développer le backend et le frontend d'un réseau social interne.
 
 J'ai développer le front et le back dans deux repos différents, que j'ai 'unifié' plus tard. Si vous souhaitez voir les étapes de développement du projet, voici les liens des repos:
     - frontend: https://github.com/CamRic/groupomania-frontend.git
     - backend: https://github.com/CamRic/groupomania-backend.git
 
 
-# TECHNOLOGIES ___________
+
+
+# ____________ TECHNOLOGIES ___________
 Pour le frontend, j'ai utilisé VUEJS avec la bibliothèque Quasar. Pour le backend, j'ai réalisé une API REST avec node.js + express. Enfin pour la gestion des données, j'ai utilisé MySql.
 
 
-# INSTALLATION ___________
+
+
+# ____________ INSTALLATION ___________
 
 Pour pouvoir utiliser la base de donnée, vous devez avoir MySql 8.0 installé. 
 Ouvrez un terminal de commande, connectez vous à mysql, puis:
