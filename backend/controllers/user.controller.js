@@ -34,7 +34,7 @@ exports.createOne = (req, res) => {
                 .then(() => res.status(201).json({ user }))
                 .catch(err => res.status(400).json({ err }))
         })
-        .catch(err => res.status(400).json({ error: 'cant hash password'}))
+        .catch(err => res.status(401).json({ error: 'cant hash password'}))
         
 }
 

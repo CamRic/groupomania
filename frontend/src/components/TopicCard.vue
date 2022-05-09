@@ -13,7 +13,7 @@
     >
       <img :src="imageUrl" class="topic-img" alt="image du sujet" />
     </q-card>
-    <q-card class="topicBody-qcard__body q-pa-lg" bordered>
+    <q-card class="topicBody-qcard__body q-pa-lg wrap" bordered>
       {{ body }}
     </q-card>
   </q-card>

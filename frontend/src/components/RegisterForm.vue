@@ -103,7 +103,13 @@ export default {
           });
           this.$emit("switchForm");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          this.$q.notify({
+            message: "Erreur: impossible de créer le compte.",
+            timeout: 2500,
+            color: "negative",
+          });
+        });
     },
   },
 };
