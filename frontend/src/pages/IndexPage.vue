@@ -40,6 +40,7 @@ import { useUserStore } from "src/pinia/user.store";
 import { ref } from "vue";
 import TopicList from "src/components/TopicList.vue";
 import UserTopicList from "src/components/UserTopicList.vue";
+import { Cookies } from "quasar";
 
 export default defineComponent({
   name: "IndexPage",
@@ -52,9 +53,16 @@ export default defineComponent({
       topicsCategory,
       slide: ref("latest"),
     };
+
   },
 
   components: { TopicList, UserTopicList },
+
+  created() {
+    if (!this.userStore.getCookie('token')) {
+          this.$router.push({ path: "/login" });
+    }
+  }
 });
 </script>
 

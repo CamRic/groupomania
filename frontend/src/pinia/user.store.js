@@ -97,14 +97,24 @@ export const useUserStore = defineStore("user_store", {
         .catch((err) => console.log(err));
     },
     getCookie(name) {
-      return document.cookie.split(";").some((c) => {
-        return c.trim().startsWith(name + "=");
-      });
+      // return document.cookie.split(";").some((c) => {
+      //   return c.trim().startsWith(name + "=");
+      // });
+      let isOk = false
+      document.cookie.split(";").some((c) => {
+        if (c.trim().startsWith(name + "=") && !c.trim().endsWith("="))
+          isOk = true
+      })
+      return isOk
     },
     deleteCookie(name) {
-      if (this.getCookie(name)) {
-        document.cookie = name + "=" + ";expires=-1";
-      }
+      document.cookie.split(";").some((c) => {
+        if (c.trim().startsWith(name + "=")) {
+          console.log('coookiee')
+          document.cookie = name + "=" + ";expires=-1";
+        }
+      })
+
     },
     disconnect() {
       this.loggedIn = false;
@@ -117,22 +127,21 @@ export const useUserStore = defineStore("user_store", {
       this.deleteCookie("user_role");
     },
     async deleteUser(data) {
+      const userID = this.user_id
+      console.log('store id: ' + this.user_id, '|| funct id: ' + userID)
       await api
         .delete("/post/user/" + this.user_id, {
           headers: { Authorization: "Bearer: " + Cookies.get("token") },
         })
-        .then((res) => {
-          console.log(res);
-          console.log("users post deleted");
-          api
+        .then(async () => {
+          await api
             .delete("/topic/user/" + this.user_id, {
               headers: { Authorization: "Bearer: " + Cookies.get("token") },
             })
-            .then((res2) => {
-              console.log(res2);
-              console.log("user topics deleted");
-              api
-                .delete("http://localhost:3000/api/user/" + this.user_id, {
+            .then(async () => {
+              console.log('store id: ' + this.user_id, '|| funct id: ' + userID)
+              await api
+                .delete("/user/" + this.user_id, {
                   headers: { Authorization: "Bearer: " + Cookies.get("token") },
                 })
                 .then((row) => {
@@ -143,7 +152,6 @@ export const useUserStore = defineStore("user_store", {
             .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
-      console.log("finished deleting user data");
       this.loggedIn = false;
     },
     async resetData(data) {

@@ -16,7 +16,6 @@ export default defineComponent({
   data() {
     const $q = useQuasar();
     const userStore = useUserStore();
-    //userStore.retrieveConnection();
     const topicStore = useTopicStore();
     return {
       topicStore,
@@ -26,6 +25,7 @@ export default defineComponent({
   },
 
   created() {
+    console.log(Cookies.has('token'))
     if (Cookies.has("token")) {
       this.retrieveSession();
     } else {

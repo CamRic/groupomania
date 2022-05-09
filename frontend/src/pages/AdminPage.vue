@@ -11,10 +11,24 @@
 <script>
 import UserList from "../components/UserList.vue";
 import AdminTopicList from "src/components/AdminTopicList.vue";
+import { useUserStore } from "src/pinia/user.store";
 
 export default {
   name: "AdminPage",
-  components: { /*TopicList,*/ UserList, AdminTopicList },
+  components: { UserList, AdminTopicList },
+  data() {
+    const userStore = useUserStore()
+    return {
+      userStore
+    }
+  },
+
+  created() {
+    console.log(this.userStore.getCookie('token'))
+    if (!this.userStore.getCookie('token')) {
+      this.$router.push({ path: "/login" });
+    }
+  },
 };
 </script>
 

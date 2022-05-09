@@ -96,8 +96,6 @@ export default {
 
   methods: {
     onSubmit(e) {
-      // verif mdp
-
       api
         .put(
           "/user/" + this.userStore.getUserId,
@@ -129,8 +127,8 @@ export default {
             message: "Compte supprimé!",
             timeout: 2500,
           });
-          this.userStore.disconnect;
           this.$router.replace("/login");
+          this.userStore.disconnect();
           console.log("user deleted");
         });
     },

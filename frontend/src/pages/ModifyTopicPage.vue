@@ -9,12 +9,28 @@
 
 <script>
 import ModifyTopic from "../components/ModifyTopic.vue";
+import { Cookies } from "quasar";
+import { useUserStore } from "src/pinia/user.store";
+
 export default {
   name: "ModifyTopicPage",
 
   components: {
     ModifyTopic,
   },
+
+  data() {
+    const userStore = useUserStore()
+    return {
+      userStore
+    }
+  },
+
+  created() {
+    if (!this.userStore.getCookie('token')) {
+      this.$router.push({ path: "/login" });
+    }
+  }
 };
 </script>
 
