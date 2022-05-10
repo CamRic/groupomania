@@ -18,7 +18,7 @@
       />
       <q-icon
         v-if="
-          userStore.getUserId === author_id || userStore.getUserRole === 'admin'
+          userStore.getUserId === author_id || userStore.user_access_level === 'admin'
         "
         class="fa-solid fa-trash-can gr-icon"
         color="red-4"
