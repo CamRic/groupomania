@@ -27,6 +27,8 @@ export default {
     console.log(this.userStore.getCookie('token'))
     if (!this.userStore.getCookie('token')) {
       this.$router.push({ path: "/login" });
+    } else if (this.userStore.getUseRole !== 'admin') {
+      this.$router.push({ path: "/" })
     }
   },
 };

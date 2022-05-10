@@ -72,3 +72,18 @@ Pour lancer le projet, lancez le terminal de commande puis tapez:
 
 
 ATTENTION: le server node utilise le port 3000, le frontend utilise le port 8080, vérifiez que ces ports sont disponnibles.
+
+
+
+
+
+
+
+
+#                             ______ PLAN PRESENTATION ______
+#
+#                             I) ____ Présentation du projet
+#                             II) ___ Les outils utilisés pour le développement
+#                             III) __ Démonstration des fonctionnalités sur un navigateur
+#                             IV) ___ Le code source de l'application
+#                             V) ____ La base de donnée
